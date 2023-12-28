@@ -1,24 +1,33 @@
 (ns hello-world-rf.core
-  (:require
-   [reagent.dom :as rdom]
-   [re-frame.core :as re-frame]
-   [hello-world-rf.events :as events]
-   [hello-world-rf.views :as views]
-   [hello-world-rf.config :as config]
-   ))
+  (:require [re-frame.core :as re-frame]
+            [reagent.dom :as rdom]))
 
+;; -- Event Handlers --
+(re-frame/reg-event-fx
+ :initialize
+ (fn [_ _]
+   {:dispatch [:say-hello "World"]}))
 
-(defn dev-setup []
-  (when config/debug?
-    (println "dev mode")))
+(re-frame/reg-event-db
+ :say-hello
+ (fn [db [_ name]]
+   (assoc db :text (str "Hello, " name "!"))))
 
-(defn ^:dev/after-load mount-root []
-  (re-frame/clear-subscription-cache!)
-  (let [root-el (.getElementById js/document "app")]
-    (rdom/unmount-component-at-node root-el)
-    (rdom/render [views/main-panel] root-el)))
+;; -- Subscriptions --
+(re-frame/reg-sub
+ :text
+ (fn [db _]
+   (:text db)))
 
+;; -- Views --
+(defn main-panel []
+  (let [text (re-frame/subscribe [:text])]
+    (fn []
+      [:div
+       [:h1 @text]])))
+
+;; -- Initialize App --
 (defn init []
-  (re-frame/dispatch-sync [::events/initialize-db])
-  (dev-setup)
-  (mount-root))
+  (re-frame/dispatch [:initialize])
+  (rdom/render [main-panel]
+            (.getElementById js/document "app")))
