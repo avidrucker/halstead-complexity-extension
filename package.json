@@ -5,7 +5,8 @@
 		"ancient": "clojure -Sdeps '{:deps {com.github.liquidz/antq {:mvn/version \"RELEASE\"}}}' -m antq.core",
 		"watch": "npx shadow-cljs watch app browser-test karma-test",
 		"release": "npx shadow-cljs release app",
-		"build-report": "npx shadow-cljs run shadow.cljs.build-report app target/build-report.html"
+		"build-report": "npx shadow-cljs run shadow.cljs.build-report app target/build-report.html",
+		"test": "npx shadow-cljs compile test && node out/node-tests.js"
 	},
 	"dependencies": {
 		"react": "17.0.2",
