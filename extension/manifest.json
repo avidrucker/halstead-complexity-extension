@@ -1,0 +1,18 @@
+
+{
+    "manifest_version": 2,
+    "name": "Halstead Complexity Extension",
+    "version": "1.0",
+    "browser_action": {
+      "default_popup": "popup.html"
+    },
+    "permissions": ["activeTab"],
+    "content_scripts": [
+      {
+        "matches": ["https://4clojure.oxal.org/*",
+                    "https://clojuredocs.org/*"],
+        "js": ["js/content-script.js"]
+      }
+    ],
+    "_comments": "The manifest file is a JSON file that describes the extension. The browser_action key tells Chrome to create a button in the toolbar. The default_popup key tells Chrome to open the popup.html file when the button is clicked. The permissions key tells Chrome that the extension needs to access the active tab. The content_scripts key tells Chrome to inject the content-script.js file into any page that matches the given URL patterns."
+  }
