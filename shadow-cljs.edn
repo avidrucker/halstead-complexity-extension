@@ -1,26 +1,35 @@
-{:nrepl {:port 8777} 
- 
+{:nrepl {:port 8777}
  :source-paths ["src" "test"]
- 
  :dependencies
  [[reagent "1.1.1"]
   [re-frame "1.4.2"]
   [binaryage/devtools "1.0.6"]]
-
  :dev-http
  {8290 "target/browser-test"
   8080 "resources/public"}
-
  :builds
  {:app
   {:target     :browser
    :output-dir "resources/public/js/compiled"
    :asset-path "/js/compiled"
-   :modules
-   {:app {:init-fn hello-world-rf.core/init}}
-   :devtools
-   {:preloads []}
-   :dev
-   {:compiler-options
-    {:closure-defines
-     { }}}}}}
+   :modules {:app {:init-fn hello-world-rf.core/init}}
+   :devtools {:preloads []}
+   :dev {:compiler-options
+         {:closure-defines
+          {}}}}
+  :popup
+  {:target :browser
+   :output-dir "extension/js"
+   :asset-path "/js"
+   :modules {:popup {:init-fn hello-world-rf.popup/init}}}
+
+  :content-script
+  {:target :browser
+   :output-dir "extension/js"
+   :asset-path "/js"
+   :modules {:content-script {:init-fn hello-world-rf.content-script/run-script
+                              :default true}}}
+
+  :test {:target :node-test
+         :output-to "out/node-tests.js"
+         :main hello-world-rf.analysis-test}}}
