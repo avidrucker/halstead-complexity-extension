@@ -31,5 +31,5 @@
                               :default true}}}
 
   :test {:target :node-test
-         :output-to "out/node-tests.js"
-         :main hello-world-rf.analysis-test}}}
+         :output-to "out/test/node-tests.js"
+         :autorun true}}}
