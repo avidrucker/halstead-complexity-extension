@@ -152,7 +152,9 @@
   (let [read-code (read-clojure-string code-str)]
     (if read-code
       (let [[operators operands] (parse-tree read-code)]
-        {:operators operators :operands (flatten operands)})
+        ;; note: operators currently can be nil, so we need to check for that
+        ;; one such example is with parsing sets
+        {:operators (if operators operators []) :operands (flatten operands)})
       (do ;; (println "Invalid Clojure code string")
         {:error "Invalid Clojure code string"}))))
 
