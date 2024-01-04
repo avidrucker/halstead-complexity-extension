@@ -16,8 +16,15 @@ To build this extension locally:
 1. Build popup.js and content-script.js by running `npx shadow-cljs release popup` and `npx shadow-cljs release content-script` respectively
 1. Load the contents of the extension/ folder into Chrome on [chrome://extensions/](chrome://extensions/) via <kbd>Load Unpacked</kbd>
 
+## Testing
+
+Run tests via `npx shadow-cljs watch test`
+
 ## Future Goals of This Project
 
+- [x] Implement basic/simple form tests
+- [ ] Implemented intermediate/nested form tests
+- [ ] Implement advanced tests for specific platform code examples (for example w/ "messy"/"bad code" inputs)
 - [ ] Toggle metrics on/off
 - [ ] Detect code fences with Clojure/ClojureScript code
 - [ ] Metrics for app.klipse.tech editor window
