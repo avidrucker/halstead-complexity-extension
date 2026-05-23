@@ -1,5 +1,5 @@
 {:nrepl {:port 8777}
- :source-paths ["src" "test"]
+ :source-paths ["src" "test" "v2/experiments"]
  :dependencies
  [[reagent "1.1.1"]
   [re-frame "1.4.2"]
@@ -32,4 +32,8 @@
 
   :test {:target :node-test
          :output-to "out/test/node-tests.js"
-         :autorun true}}}
+         :autorun true}
+
+  :experiment {:target :node-script
+               :main runner/-main
+               :output-to "out/experiment.js"}}}
